@@ -49,7 +49,7 @@
 ### 2. Clone và build
 
 ```bash
-git clone https://github.com/your-org/judge-system.git
+git clone https://github.com/nhson2612/OnlineJudge.git
 cd judge-system
 mvn clean install
 ```
