@@ -1,5 +1,13 @@
-FROM openjdk:21
+FROM openjdk:21-slim
+
 WORKDIR /app
-COPY run.sh /app/run.sh
-RUN chmod +x /app/run.sh
+
+COPY run.sh .
+
+RUN chmod +x ./run.sh \
+    && apt-get update \
+    && apt-get install -y time \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 ENTRYPOINT ["/app/run.sh"]
