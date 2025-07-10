@@ -1,4 +1,4 @@
-package org.example.judge.auth;
+package org.example.judge.auth.domain;
 
 public enum Role {
     ADMIN,

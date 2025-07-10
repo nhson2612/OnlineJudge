@@ -1,7 +1,7 @@
 package org.example.judge.exam;
 
 import jakarta.persistence.*;
-import org.example.judge.classroom.ClassRoom;
+import org.example.judge.classroom.domain.ClassRoom;
 import org.example.judge.problem.model.Problem;
 
 import java.time.Instant;
