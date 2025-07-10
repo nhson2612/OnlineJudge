@@ -19,7 +19,7 @@ public class SubmissionWorkerStartup {
         this.submissionWorker = submissionWorker;
     }
 
-    @EventListener(ApplicationReadyEvent.class)
+//    @EventListener(ApplicationReadyEvent.class)
     public void onStartup() {
         submissionWorker.start();
         this.test();
