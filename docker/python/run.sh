@@ -1,19 +1,18 @@
 #!/bin/bash
-# docker/java/run.sh
+# docker/python/run.sh
 
 set -e
 
 # Constants
 TIMEOUT_SECONDS=5
 EXIT_CODE_TIMEOUT=124
-EXIT_CODE_COMPILATION_ERROR=1
-JAVA_CLASS="Main"
+EXIT_CODE_RUNTIME_ERROR=1
 OUTPUT_FILE=""
 
 # Check arguments
 if [ $# -lt 3 ]; then
     echo "❌ Error: Missing arguments" > "out_unknown.txt"
-    echo "Usage: $0 <source_file> <input_file> <order_index>" >> "out_unknown.txt"
+    echo "Usage: $0 <source_file.py> <input_file> <order_index>" >> "out_unknown.txt"
     exit 1
 fi
 
@@ -33,19 +32,13 @@ if [ ! -f "$INPUT_FILE" ]; then
     exit 1
 fi
 
-# Clean up previous runs
-rm -f "$OUTPUT_FILE" "${JAVA_CLASS}.class" mem_usage.txt stderr.txt
+# Clean up
+rm -f "$OUTPUT_FILE" mem_usage.txt stderr.txt
 
-# Compile Java
-if ! javac "$SOURCE_FILE" 2> "$OUTPUT_FILE"; then
-    echo "❌ Compilation Error" >> "$OUTPUT_FILE"
-    exit $EXIT_CODE_COMPILATION_ERROR
-fi
-
-# Run Java program with timeout and memory limits
+# Run Python script with timeout and memory limit
 if ! timeout --signal=SIGKILL "$TIMEOUT_SECONDS"s \
     /usr/bin/time -f "%M" -o mem_usage.txt \
-    java "$JAVA_CLASS" < "$INPUT_FILE" > "$OUTPUT_FILE" 2> stderr.txt; then
+    python3 "$SOURCE_FILE" < "$INPUT_FILE" > "$OUTPUT_FILE" 2> stderr.txt; then
     EXIT_CODE=$?
     if [ $EXIT_CODE -eq $EXIT_CODE_TIMEOUT ]; then
         echo "❌ Time Limit Exceeded (>${TIMEOUT_SECONDS}s)" >> "$OUTPUT_FILE"
@@ -53,7 +46,7 @@ if ! timeout --signal=SIGKILL "$TIMEOUT_SECONDS"s \
     else
         echo "❌ Runtime Error (exit code $EXIT_CODE)" >> "$OUTPUT_FILE"
         cat stderr.txt >> "$OUTPUT_FILE" 2>/dev/null
-        exit $EXIT_CODE
+        exit $EXIT_CODE_RUNTIME_ERROR
     fi
 fi
 
@@ -66,5 +59,5 @@ if [ "$ACTUAL_MEMORY" -gt "$MAX_MEMORY_KB" ]; then
 fi
 
 # Clean up
-rm -f "${JAVA_CLASS}.class" mem_usage.txt stderr.txt
+rm -f mem_usage.txt stderr.txt
 exit 0
