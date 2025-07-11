@@ -1,3 +1,5 @@
+# SIDE PROJECT - Hands-on practice for learning Java, Docker, Spring Boot, Git and more
+
 # Chấm điểm bài thi lập trình tự động
 
 - ✅ Biên dịch & chạy chương trình trong môi trường Docker
@@ -49,7 +51,7 @@
 ### 2. Clone và build
 
 ```bash
-git clone https://github.com/nhson2612/OnlineJudge.git
+git clone https://github.com/your-org/judge-system.git
 cd judge-system
 mvn clean install
 ```
@@ -83,4 +85,4 @@ java -jar target/judge-system.jar
   > - **Qwen 🤖🤖🤖**
   > - **Gemini 🤖🤖🤖**
 
-# HOPE YOU ENJOY THIS PROJECT!
+# UI IS IN DEVELOPING AND WILL BE INTRODUCED SOON ,HOPE YOU ENJOY THIS PROJECT!
