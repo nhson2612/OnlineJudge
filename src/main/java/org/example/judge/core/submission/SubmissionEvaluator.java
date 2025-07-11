@@ -6,9 +6,9 @@ import org.example.judge.core.evaluation.CompareStage;
 import org.example.judge.core.evaluation.EvaluationPipeline;
 import org.example.judge.core.evaluation.RunStage;
 import org.example.judge.core.evaluation.ValidStage;
-import org.example.judge.submission.model.ProblemSubmission;
-import org.example.judge.submission.model.SubmissionJob;
-import org.example.judge.submission.model.SubmissionStatus;
+import org.example.judge.core.domain.ProblemSubmission;
+import org.example.judge.core.domain.SubmissionJob;
+import org.example.judge.core.domain.SubmissionStatus;
 
 import java.util.ArrayList;
 import java.util.List;

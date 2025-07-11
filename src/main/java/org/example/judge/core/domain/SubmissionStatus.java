@@ -1,4 +1,4 @@
-package org.example.judge.submission.model;
+package org.example.judge.core.domain;
 
 public enum SubmissionStatus {
     PENDING, RUNNING, COMPLETED, FAILED

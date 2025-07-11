@@ -1,6 +1,6 @@
 package org.example.judge.submission.model.old;
 
-import org.example.judge.submission.model.SubmissionStatus;
+import org.example.judge.core.domain.SubmissionStatus;
 
 public class JudgeResult {
     private final String submissionId;

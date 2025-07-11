@@ -2,7 +2,7 @@
 //
 //import org.example.judge.submission.model.old.JudgeResult;
 //import org.example.judge.submission.model.old.Submission;
-//import org.example.judge.submission.model.SubmissionStatus;
+//import org.example.judge.core.domain.SubmissionStatus;
 //
 //import java.util.HashSet;
 //import java.util.Set;
