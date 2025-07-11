@@ -18,5 +18,37 @@ public class TestCase {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "problem_id")
     private Problem problem;
-    private int orderIndex;
+    private Long orderIndex;
+
+    public TestCase() {
+    }
+
+    public TestCase(Problem problem, Long orderIndex) {
+        this.problem = problem;
+        this.orderIndex = orderIndex;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Problem getProblem() {
+        return problem;
+    }
+
+    public void setProblem(Problem problem) {
+        this.problem = problem;
+    }
+
+    public Long getOrderIndex() {
+        return orderIndex;
+    }
+
+    public void setOrderIndex(Long orderIndex) {
+        this.orderIndex = orderIndex;
+    }
 }

@@ -1,4 +1,4 @@
-package org.example.judge.exam;
+package org.example.judge.exam.domain;
 
 public enum ExamStatus {
     NOT_STARTED,
