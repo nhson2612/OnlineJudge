@@ -5,7 +5,7 @@
 //import org.example.judge.submission.model.old.JudgeRawResult;
 //import org.example.judge.submission.model.old.JudgeResult;
 //import org.example.judge.submission.model.old.Submission;
-//import org.example.judge.submission.model.SubmissionStatus;
+//import org.example.judge.core.domain.SubmissionStatus;
 //
 //import java.util.concurrent.CompletableFuture;
 //import java.util.concurrent.ExecutorService;

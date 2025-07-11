@@ -2,7 +2,7 @@ package org.example.judge.core.submission;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.example.judge.submission.model.SubmissionJob;
+import org.example.judge.core.domain.SubmissionJob;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CompletableFuture;

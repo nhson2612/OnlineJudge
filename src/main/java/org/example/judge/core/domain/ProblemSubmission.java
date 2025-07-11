@@ -1,8 +1,4 @@
-package org.example.judge.submission.model;
-
-import org.example.judge.core.domain.TestCaseResult;
-import org.example.judge.core.domain.Testcase;
-import org.example.judge.core.domain.TestcaseResultType;
+package org.example.judge.core.domain;
 
 import java.util.List;
 

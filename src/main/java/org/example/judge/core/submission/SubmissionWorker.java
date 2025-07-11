@@ -4,8 +4,8 @@ package org.example.judge.core.submission;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.example.judge.core.evaluation.JudgePipelineException;
-import org.example.judge.submission.model.SubmissionJob;
-import org.example.judge.submission.model.SubmissionStatus;
+import org.example.judge.core.domain.SubmissionJob;
+import org.example.judge.core.domain.SubmissionStatus;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;

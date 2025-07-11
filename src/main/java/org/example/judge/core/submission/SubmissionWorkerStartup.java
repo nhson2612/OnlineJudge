@@ -1,9 +1,9 @@
 package org.example.judge.core.submission;
 
 import org.example.judge.core.domain.Testcase;
-import org.example.judge.submission.model.ProblemSubmission;
-import org.example.judge.submission.model.SubmissionJob;
-import org.example.judge.submission.model.SubmissionStatus;
+import org.example.judge.core.domain.ProblemSubmission;
+import org.example.judge.core.domain.SubmissionJob;
+import org.example.judge.core.domain.SubmissionStatus;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
