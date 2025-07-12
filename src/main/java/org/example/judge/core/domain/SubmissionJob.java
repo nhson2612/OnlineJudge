@@ -45,5 +45,7 @@ public class SubmissionJob {
 
     public void setOverallScore(long passedCount) {
         this.overallScore = passedCount + "/" + this.problems.size();
+        if(passedCount == 0) {this.overallStatus = SubmissionStatus.FAILED;}
+        else {this.overallStatus = SubmissionStatus.COMPLETED;}
     }
 }

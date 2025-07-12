@@ -1,6 +1,8 @@
 package org.example.judge.submission.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import org.example.judge.core.domain.TestCaseResult;
 import org.example.judge.core.domain.TestcaseResultType;
 
 @Entity
@@ -18,6 +20,7 @@ public class TestCaseResultEntity {
     private long memoryUsage;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "problem_submission_id")
+    @JsonBackReference
     private ProblemSubmissionEntity problemSubmission;
 
     public TestCaseResultEntity() {}
@@ -29,6 +32,14 @@ public class TestCaseResultEntity {
         this.expectedOutputPath = expectedOutputPath;
         this.executionTime = executionTime;
         this.memoryUsage = memoryUsage;
+    }
+
+    public TestCaseResultEntity(TestCaseResult testCaseResult){
+        this.type = testCaseResult.getType();
+        this.actualOutputPath = testCaseResult.getActualOutputPath();
+        this.expectedOutputPath = testCaseResult.getExpectedOutputPath();
+        this.executionTime = testCaseResult.getExecutionTime();
+        this.memoryUsage = testCaseResult.getMemoryUsage();
     }
 
     public Long getId() {return id;}
@@ -45,4 +56,6 @@ public class TestCaseResultEntity {
     public void setExecutionTime(long executionTime) {this.executionTime = executionTime;}
     public long getMemoryUsage() {return memoryUsage;}
     public void setMemoryUsage(long memoryUsage) {this.memoryUsage = memoryUsage;}
+    public ProblemSubmissionEntity getProblemSubmission() {return problemSubmission;}
+    public void setProblemSubmission(ProblemSubmissionEntity problemSubmission) {this.problemSubmission = problemSubmission;}
 }

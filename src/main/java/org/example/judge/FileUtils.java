@@ -3,11 +3,13 @@ package org.example.judge;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 @Component
 public class FileUtils {
@@ -16,15 +18,20 @@ public class FileUtils {
             "draft/input", Paths.get("draft/input"),
             "draft/expectedOutput", Paths.get("draft/expectedOutput"),
             "input",Paths.get("input"),
-            "expected-output", Paths.get("expected-output")
-    );
+            "expected-output", Paths.get("expected-output"),
+            "submissions",Paths.get("submissions"));
 
-    public static Path getFilePath(String dir, String fileName) {
+    public static Path getFilePath(String dir, String... subPaths) {
         Path baseDir = fileLocations.get(dir);
         if (baseDir == null) {
             throw new IllegalArgumentException("Unknown directory: " + dir);
         }
-        return baseDir.resolve(fileName);
+        Path fullPath = baseDir;
+        for (String subPath : subPaths) {
+            fullPath = fullPath.resolve(subPath);
+        }
+
+        return fullPath;
     }
 
     public static Path save(MultipartFile multipartFile, String dir) {
@@ -33,6 +40,31 @@ public class FileUtils {
             multipartFile.transferTo(filePath);
             return filePath;
         } catch (Exception e) {
+            throw new RuntimeException("Failed to save file: " + e.getMessage(), e);
+        }
+    }
+
+    public static Path save(String content, String dir, String fileName,String... subPaths) {
+        try {
+            Path baseDir = fileLocations.get(dir);
+            if (baseDir == null) {
+                throw new IllegalArgumentException("Unknown base dir key: " + dir);
+            }
+            // Tạo path đầy đủ
+            Path targetPath = baseDir;
+            for (String part : subPaths) {
+                targetPath = targetPath.resolve(part);
+            }
+            targetPath = targetPath.resolve(fileName);
+
+            // Tạo thư mục cha nếu chưa có
+            Files.createDirectories(targetPath.getParent());
+
+            // Ghi nội dung
+            Files.writeString(targetPath, content);
+
+            return targetPath;
+        } catch (IOException e) {
             throw new RuntimeException("Failed to save file: " + e.getMessage(), e);
         }
     }
@@ -62,15 +94,40 @@ public class FileUtils {
         remove(filePath);
     }
 
-    public static String read(String dir, String fileName) {
-        Path filePath = fileLocations.get(dir).resolve(fileName);
+    public static String read(String dir, String... subPaths) {
+        Path basePath = fileLocations.get(dir);
+        if (basePath == null) {
+            throw new IllegalArgumentException("Unknown base directory: " + dir);
+        }
+
+        Path fullPath = basePath;
+        for (String subPath : subPaths) {
+            fullPath = fullPath.resolve(subPath);
+        }
+
         try {
-            return java.nio.file.Files.readString(filePath);
+            return java.nio.file.Files.readString(fullPath);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to read file: " + e.getMessage(), e);
+            throw new RuntimeException("Failed to read file: " + fullPath + " - " + e.getMessage(), e);
         }
     }
+    public static int countFiles(String dir, String subDir) {
+        Path baseDir = fileLocations.get(dir);
+        if (baseDir == null) {
+            throw new IllegalArgumentException("Unknown directory: " + dir);
+        }
 
+        Path fullPath = baseDir.resolve(subDir);
+        if (!Files.exists(fullPath) || !Files.isDirectory(fullPath)) {
+            return 0;
+        }
+
+        try (Stream<Path> files = Files.list(fullPath)) {
+            return (int) files.filter(Files::isRegularFile).count();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to count files in " + fullPath, e);
+        }
+    }
     public static Map<String, List<Path>> splitAndSaveTestCases(Long problemId, Path inputPath, Path outputPath) {
         try {
             String inputContent = Files.readString(inputPath);

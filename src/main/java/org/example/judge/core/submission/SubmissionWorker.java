@@ -11,6 +11,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 public class SubmissionWorker {
     private static final Log LOG = LogFactory.getLog(SubmissionWorker.class);
@@ -20,7 +21,7 @@ public class SubmissionWorker {
     private final int maxConcurrentSubmissions;
     private volatile boolean isRunning;
     private final SubmissionEvaluator evaluator;
-
+    private Consumer<SubmissionJob> onCompleteCallback = job -> {};
 
     public SubmissionWorker(int maxConcurrentSubmissions, int maxQueueSize, SubmissionEvaluator evaluator) {
         this.maxConcurrentSubmissions = maxConcurrentSubmissions;
@@ -34,7 +35,9 @@ public class SubmissionWorker {
         this.processingCount = new AtomicInteger(0);
         this.isRunning = false;
     }
-
+    public void setOnCompleteCallback(Consumer<SubmissionJob> callback) {
+        this.onCompleteCallback = callback;
+    }
     public void start() {
             if (isRunning) {
                 return;
@@ -80,7 +83,7 @@ public class SubmissionWorker {
             LOG.info("🔄 Processing submission: " + submissionId + " (Running: " + currentRunning + ")");
             submission.setOverallStatus(SubmissionStatus.RUNNING);
             SubmissionJob submissionJob = evaluator.execute(submission);
-//            completeSubmission(submissionJob);
+            submissionJobQueue.completeSubmission(Long.valueOf(submissionId), submissionJob);
             LOG.info("🎉🎉🎉 processing success : " + submissionId + " your overall score is " + submissionJob.getOverallScore());
         } catch (JudgePipelineException e) {
             if(e.getExitCode()==-1){
@@ -91,8 +94,14 @@ public class SubmissionWorker {
             submission.setOverallStatus(SubmissionStatus.FAILED);
         } finally {
             processingCount.decrementAndGet();
+            try {
+                onCompleteCallback.accept(submission);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
+
 
     public CompletableFuture<SubmissionJob> submitAsync(SubmissionJob submission) {
         return submissionJobQueue.submit(submission);
@@ -109,6 +118,7 @@ public class SubmissionWorker {
         return submissionJobQueue.getTotalProcessed();
     }
 
+    public int getRemainingCapacity() {return submissionJobQueue.getAvailableSlots();}
     public void printStats() {
         LOG.info("📊 Judge System Stats:");
         LOG.info("  Queue Size: " + getQueueSize());

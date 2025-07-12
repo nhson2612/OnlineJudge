@@ -55,7 +55,15 @@ public class SubmissionJobQueue {
         return futures.containsKey(submissionId.toString());
     }
 
-
+    public void completeSubmission(Long submissionId, SubmissionJob result) {
+        CompletableFuture<SubmissionJob> future = futures.remove(submissionId.toString());
+        if (future != null) {
+            future.complete(result);
+            LOG.info("✅ Completed submission: " + submissionId + " (Queue size: " + queueSize.get() + ")");
+        } else {
+            LOG.warn("⚠️ Submission not found for completion: " + submissionId);
+        }
+    }
     public int getQueueSize() {
         return queueSize.get();
     }
@@ -64,5 +72,9 @@ public class SubmissionJobQueue {
         return futures.values().stream()
                 .filter(CompletableFuture::isDone)
                 .count();
+    }
+
+    public int getAvailableSlots() {
+        return pendingQueue.remainingCapacity();
     }
 }

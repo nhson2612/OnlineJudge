@@ -28,7 +28,7 @@ public class SubmissionWorkerStartup {
     private void test(){
         ProblemSubmission problemSubmission = new ProblemSubmission(
             1L,
-            "C:\\Users\\Administrator.DESKTOP-98TGIBL\\IdeaProjects\\Judge\\submissions\\1\\main.cpp",
+            "C:\\Users\\Administrator.DESKTOP-98TGIBL\\IdeaProjects\\Judge\\submissions\\1\\1\\main.cpp",
             "cpp",
             null,
             "",
@@ -52,7 +52,7 @@ public class SubmissionWorkerStartup {
 
         ProblemSubmission problemSubmission2 = new ProblemSubmission(
             2L,
-            "C:\\Users\\Administrator.DESKTOP-98TGIBL\\IdeaProjects\\Judge\\submissions\\2\\main.cpp",
+            "C:\\Users\\Administrator.DESKTOP-98TGIBL\\IdeaProjects\\Judge\\submissions\\1\\2\\main.cpp",
             "cpp",
             null,
             "",

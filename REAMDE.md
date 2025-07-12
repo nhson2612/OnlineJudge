@@ -1,52 +1,55 @@
-# Chấm điểm bài thi lập trình tự động
 
-- ✅ Biên dịch & chạy chương trình trong môi trường Docker
-- ✅ So khớp đầu ra với test case
-- ✅ Tính điểm dựa trên số test case đúng
-- ✅ Ghi log và báo lỗi chi tiết nếu có
-- ✅ Phát hiện bài làm có dấu hiệu **sao chép (plagiarism)** nếu bật tính năng
+# SIDE PROJECT : Hands-on practice for learning **Java**, **Docker**, **Git** and more!
 
----
-## 🏗️ Kiến Trúc Tổng Quan
-[Kiểm tra tại đây]()
+# Automatically Grading System
 
-## 🚀 Tính Năng Chính
-
-- ✅ Giao diện API để nộp bài (**in progress**)
-- ✅ Dùng Docker để biên dịch & chạy code an toàn (complete v1.0)
-- ✅ Hỗ trợ nhiều ngôn ngữ (C++, Java, Python…) (complete v1.0)
-- ✅ So sánh output từng test case với file mẫu (complete v1.0)
-- ✅ Tính điểm tự động và lưu kết quả (**in progress**)
-- ✅ Phát hiện gian lận bằng so sánh mã nguồn (complete v1.0)
-- ✅ Tự động retry nếu chấm lỗi (3 lần) (**in progress**)
-
-
+  - ✅ Compile and run code safely using Docker
+  - ✅ Match output of each test case with expected results
+  - ✅ Automatically grade code submissions
+  - ✅ Export results as JSON, CSV and more formats (**expected v2.0**)
+  - ✅ Detect plagiarism by comparing source code
 
 ---
+## 🏗️ Overview Architecture
+[Check it out]()
 
-## 🧰 Công Nghệ Sử Dụng
+## 🚀 Core Features
 
-| Thành phần              | Công nghệ                       |
-|-------------------------|---------------------------------|
-| Backend                 | Java 21 + Spring Boot           |
-| Chấm code               | Docker + Shell Scripts          |
-| AST & Token analysis    | ANTLR/JavaParser (**expected**) |
-| Queue xử lý song song   | BlockingQueue + ExecutorService |
-| Build tool              | Maven                           |
-| DB                      | MySQL                           |
+  - ✅ UI and API for submitting code (**In progress**)
+  - ✅ Using Docker to compile and run code safely (complete v1.0)
+  - ✅ Support multiple programming languages: C++, Java, Python (**only three languages for now**)
+  - ✅ Compare output of each testcase with expected output (**complete v1.0**)
+  - ✅ Automatically grade code submissions (complete v1.0)
+  - ✅ Detect plagiarism by comparing source code (complete v1.0)
+  - ✅ Automatically retry failed test cases (**In progress**)
+
+
 
 ---
 
-## ⚙️ Hướng Dẫn Cài Đặt
+## 🧰 Tech stack
 
-### 1. Yêu cầu
+| Components           |                                 |
+|----------------------|---------------------------------|
+| Backend              | Java 21 + Spring Boot           |
+| Grade                | Docker + Shell Scripts          |
+| AST & Token analysis | ANTLR/JavaParser (**dự kiến**)  |
+| Build tool           | Maven                           |
+| DB                   | MySQL                           |
+| Others               | BlockingQueue + ExecutorService |
 
-- Java 21 hoặc các phiên bản LTS khác
-- Docker
-- Maven
-- Git
+---
 
-### 2. Clone và build
+## ⚙️ Guide
+
+### 1. Requirements
+
+- Java 21 or other LTS version
+  - Docker
+  - Maven
+  - Git
+
+### 2. Clone and build
 
 ```bash
 git clone https://github.com/your-org/judge-system.git
@@ -67,20 +70,21 @@ cd ../python
 docker build -t judge-python .
 ```
 
-### 4. Chạy ứng dụng
+### 4. Run the application
 
 ```bash
 java -jar target/judge-system.jar
 ```
 
-# 👨‍💻Tác giả
-- Tác giả chính : **Nguyễn Huy Sơn** - Student
-- Hỗ trợ :
-  > - **ChatGpt 🤖🤖🤖🤖🤖**
-  > - **Claude 🤖🤖🤖🤖🤖**
-  > - **Deepseek 🤖🤖🤖🤖🤖**
-  > - **Grok 🤖🤖🤖🤖**
-  > - **Qwen 🤖🤖🤖**
-  > - **Gemini 🤖🤖🤖**
+# 👨‍💻 Contributors
+- **Nhson2612** - Student
+  - Supported by:
+  >   - **ChatGpt 🤖🤖🤖🤖🤖**
+  >   - **Claude 🤖🤖🤖🤖🤖**
+  >   - **Deepseek 🤖🤖🤖🤖🤖**
+  >   - **Grok 🤖🤖🤖🤖**
+  >   - **Qwen 🤖🤖🤖**
+  >   - **Gemini 🤖🤖🤖**
+  >   - **Llama 3 🤖🤖🤖**
 
-# HOPE YOU ENJOY THIS PROJECT!
+# UI is under development and will be introduced soon, hope you like this project!
